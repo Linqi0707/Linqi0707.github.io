@@ -1,15 +1,32 @@
-// Static GitHub Pages: local appreciation, not a global visitor count.
-const likeCount = document.getElementById('like-count');
-const likeNote = document.getElementById('like-note');
-try {
-  localStorage.setItem('linqi-homepage-liked', 'true');
-  likeCount.textContent = '1';
-  likeNote.textContent = '已点赞 · 谢谢你来';
-  likeCount.parentElement.title = '本浏览器已自动点赞；此数字不是全站累计点赞数。';
-} catch {
-  likeCount.textContent = '♡';
-  likeNote.textContent = '谢谢你来';
+const likeButton = document.getElementById('like-button');
+const likeFeedback = document.getElementById('like-feedback');
+const portrait = document.querySelector('.avatar-link');
+// Render the message outside the scrollable profile so it cannot be clipped.
+document.body.appendChild(likeFeedback);
+function positionLikeFeedback() {
+  const bounds = likeButton.getBoundingClientRect();
+  const width = likeFeedback.offsetWidth;
+  const left = Math.max(8, Math.min(bounds.right + 8, window.innerWidth - width - 8));
+  likeFeedback.style.setProperty('--feedback-left', `${left}px`);
+  likeFeedback.style.setProperty('--feedback-top', `${bounds.top + bounds.height / 2}px`);
 }
+window.addEventListener('resize', positionLikeFeedback);
+window.addEventListener('scroll', positionLikeFeedback, true);
+let feedbackTimer;
+likeButton.addEventListener('click', () => {
+  clearTimeout(feedbackTimer);
+  likeFeedback.textContent = '谢谢喜欢';
+  positionLikeFeedback();
+  likeButton.classList.add('is-loved');
+  likeFeedback.classList.add('is-visible');
+  portrait.classList.add('is-liked');
+  feedbackTimer = setTimeout(() => {
+    likeFeedback.classList.remove('is-visible');
+    likeButton.classList.remove('is-loved');
+    portrait.classList.remove('is-liked');
+    likeFeedback.textContent = '';
+  }, 2200);
+});
 const avatar = document.querySelector('.avatar');
 avatar.addEventListener('error', () => avatar.classList.add('is-unavailable'));
 if (avatar.complete && !avatar.naturalWidth) avatar.classList.add('is-unavailable');
@@ -62,3 +79,7 @@ document.addEventListener('keydown', event => {
 });
 window.addEventListener('hashchange', revealSection);
 revealSection();
+
+
+
+

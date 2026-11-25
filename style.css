@@ -118,3 +118,112 @@ footer{font-family:"Times New Roman",serif;letter-spacing:normal}
 /* Stronger biography and navigation text for readability over the illustration. */
 .about h2{font-weight:700}
 .about .biography,.about .biography-zh{color:#403744}
+.resume-content{padding-top:8px;padding-bottom:32px}
+.resume-entry{padding:22px 0;border-bottom:1px solid var(--line)}
+.resume-entry:first-child{padding-top:0}.resume-entry:last-child{border:0}
+.resume-entry h3{margin:0 0 8px;font-size:20px;font-weight:500;color:var(--ink);line-height:1.5}
+.entry-meta{font-size:14px;color:var(--muted)}
+.honor-list{list-style:none;margin:0;padding:0}.honor-list li{padding:16px 0;border-bottom:1px solid var(--line);color:var(--ink)}.honor-list p{font-size:15px;color:var(--muted)}
+.education-list .course-note{font-size:16px;color:var(--muted);margin-top:8px}
+.skills-section{padding:30px 12px;scroll-margin-top:28px}
+@media(max-width:640px){.resume-content{padding-left:16px;padding-right:12px}.resume-entry h3{font-size:18px}}
+/* Two-column content layout with a persistent profile and open sections. */
+.homepage{display:grid;grid-template-columns:minmax(240px,32%) minmax(0,1fr);column-gap:clamp(32px,4vw,72px);align-items:start;padding-top:clamp(40px,7vh,80px)}
+.homepage>.profile{position:sticky;top:28px;max-height:calc(100svh - 56px);overflow-y:auto;scrollbar-width:thin;padding:6px 4px 16px}
+.content-column{min-width:0}
+.content-column>.about{padding:0 0 30px}
+.content-column .chapters{max-width:none;width:100%;padding:0}
+.content-column .chapter{padding:30px 0;border-bottom:1px solid var(--line);scroll-margin-top:28px}
+.content-column .chapter>.section-heading{margin-bottom:24px}
+.content-column .chapter-content{padding-left:0;padding-right:0}
+.content-column .education-section,.content-column .skills-section{padding:30px 0}
+.profile h1{font-size:clamp(30px,2.6vw,44px)}
+@media(min-width:761px) and (max-height:760px){.profile .avatar-link{width:160px;height:160px}.homepage>.profile{gap:16px}.profile .signature{font-size:19px}}
+@media(max-width:760px){.homepage{display:block;padding-top:68px}.homepage>.profile{position:static;max-height:none;overflow:visible;margin-bottom:44px}.content-column>.about{padding-inline:0}.profile h1{font-size:38px}}
+/* Keep the desktop profile fixed to the viewport during all page scrolling. */
+@media(min-width:761px){
+.homepage{--profile-width:calc((95vw - 210px - clamp(32px,4vw,72px)) * .32);display:block;padding-left:calc(var(--profile-width) + clamp(32px,4vw,72px))}
+.homepage>.profile{position:fixed;left:5vw;top:clamp(40px,7vh,80px);width:var(--profile-width);max-height:calc(100svh - clamp(40px,7vh,80px) - 20px);overflow-y:auto;margin:0;z-index:1}
+}
+@media(min-width:761px) and (max-width:900px){.homepage{--profile-width:calc((90vw - clamp(32px,4vw,72px)) * .32)}}
+@media(max-width:760px){.homepage{padding-left:0}.homepage>.profile{position:static;width:auto}}
+/* A playful heart interaction, without visitor or like counters. */
+.contact-row .appreciation{position:relative}
+.like-button{display:grid;place-items:center;min-width:44px;min-height:44px;padding:10px;border:0;border-radius:50%;background:transparent;color:#947286;cursor:pointer;transition:background .2s,color .2s,transform .2s}
+.like-button .icon{width:22px;height:22px}
+.like-button:hover{background:#f0e0eb99;color:#b45a86}
+.like-button:active{transform:scale(.9)}
+.like-button.is-loved{color:#b45a86;background:#f0e0eb99}
+.like-button.is-loved .icon{fill:#d893b280}
+.like-button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.like-feedback{position:absolute;top:100%;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:13px;color:#8a506e;pointer-events:none;z-index:4}
+.like-burst{position:absolute;left:50%;top:50%;pointer-events:none;z-index:4}
+.like-burst span{position:absolute;color:#c77b9e;font-size:17px;animation:heart-pop .85s ease-out forwards}
+@keyframes heart-pop{from{opacity:1;transform:translate(-50%,-50%) scale(.6)}to{opacity:0;transform:translate(var(--heart-x),var(--heart-y)) rotate(var(--heart-rotation)) scale(1.1)}}
+/* A right-side thank-you and a brief blush on the portrait. */
+.like-feedback{top:50%;left:calc(100% + 8px);transform:translate(-8px,-50%);opacity:0;transition:opacity .2s,transform .25s;line-height:1.5;background:#fff8fbe8;border-radius:8px;padding:5px 9px;box-shadow:0 2px 10px #b9749512}
+.like-feedback.is-visible{opacity:1;transform:translate(0,-50%)}
+
+
+.avatar-link{transition:border-color .25s,box-shadow .25s}
+.profile .avatar-link.is-liked{border-color:#e99fbb;box-shadow:0 0 0 2px #f4c2d5,0 0 22px #e99fbb55}
+
+/* Keep transient like effects from showing a scrollbar on the profile. */
+.homepage>.profile{scrollbar-width:none}
+.homepage>.profile::-webkit-scrollbar{display:none;width:0;height:0}
+/* Soft gradient ring fades in without changing the portrait geometry. */
+.profile .avatar-link.is-liked{border-color:#ffffffb8;box-shadow:0 0 0 1px #b5a5b54a,0 10px 30px #6452670d}
+.avatar-link::after{content:"";position:absolute;inset:-1px;z-index:3;pointer-events:none;border-radius:50%;padding:5px;background:conic-gradient(from 30deg,#f6d4e2,#e8a9c7,#d6b9e9,#f9dce8,#f6d4e2);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;opacity:0;transition:opacity .65s ease-in-out}
+.avatar-link.is-liked::after{opacity:1}
+/* Render the gradient in the existing border gap, outside the photo. */
+.profile .avatar-link{border-color:transparent;background:linear-gradient(#fff9fc,#fff9fc) padding-box,conic-gradient(from 30deg,#f6d4e2,#e8a9c7,#d6b9e9,#f9dce8,#f6d4e2) border-box;isolation:isolate}
+.profile .avatar-link.is-liked{border-color:transparent;box-shadow:0 0 0 1px #b5a5b54a,0 10px 30px #6452670d}
+.profile .avatar-link::after{inset:-5px;padding:5px;background:#fff;opacity:.88;transition:opacity .65s ease-in-out}
+.profile .avatar-link.is-liked::after{opacity:0}
+/* Reveal the border-gap gradient only while the like interaction is active. */
+.profile .avatar-link{background:#fff;border-color:#fff;overflow:visible}
+.profile .avatar-link .avatar{border-radius:50%}
+.profile .avatar-link::after{inset:-5px;padding:5px;background:conic-gradient(from 30deg,#f6d4e2,#e8a9c7,#d6b9e9,#f9dce8,#f6d4e2);opacity:0;transition:opacity .65s ease-in-out}
+.profile .avatar-link.is-liked{border-color:#fff}
+.profile .avatar-link.is-liked::after{opacity:1}
+/* Academic identity beneath the name; retain the original interest capsules. */
+.profile-role{margin:0 0 10px;font-family:"Times New Roman",serif;font-size:18px;line-height:1.5;color:var(--accent)}
+.profile-affiliation{margin:0 0 20px;font-family:"Times New Roman",serif;font-size:16px;line-height:1.65;color:var(--muted)}
+.profile-affiliation abbr{text-decoration:none}
+@media(min-width:761px) and (max-height:850px){.profile .avatar-link{width:160px;height:160px}.homepage>.profile{gap:16px}.profile h1{margin-bottom:10px}.profile-affiliation{margin-bottom:14px}.research-tags{margin-top:14px}}
+.profile-role{color:var(--ink)}
+.profile-university{display:block;white-space:normal;text-wrap:balance}
+.signature-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px}
+.profile .signature-row .signature{margin:0}
+.signature-row .appreciation{position:relative;flex:none;width:auto;min-width:0;margin:0}
+.profile-github{font-family:"Times New Roman",serif;font-size:16px;color:var(--muted);text-decoration:underline;text-underline-offset:4px}
+.profile-github:hover{color:var(--ink)}
+.contact-row{column-gap:14px;row-gap:6px}
+@media(max-width:360px){.profile .signature-row .signature{font-size:17px}}
+.profile-github{display:inline-flex;align-items:center;gap:7px}
+.github-icon{width:18px;height:18px;flex:none}
+.like-feedback{position:fixed;left:var(--feedback-left,0px);top:var(--feedback-top,0px);z-index:20}
+/* One heading style for About me and all following content sections. */
+.content-column .about>h2,.content-column .section-heading h2{font-family:"Times New Roman",serif;font-size:32px;font-weight:700;line-height:1.4;letter-spacing:0;color:#393342;margin:0}
+.content-column .about>h2,.content-column .section-heading{position:relative;padding:0 0 14px;margin:0 0 24px;min-height:0}
+.content-column .about>h2::after,.content-column .section-heading::after{content:"";position:absolute;left:0;bottom:0;width:100px;height:3px;background:#dbc49b;margin:0}
+.content-column .section-heading>.icon{display:none}
+.content-column>.about{padding:0 0 30px}
+.content-column .chapter,.content-column .education-section,.content-column .skills-section{padding:30px 0}
+@media(max-width:640px){.content-column .about>h2,.content-column .section-heading h2{font-size:28px}}
+/* All section underlines are drawn by the same heading wrapper. */
+.content-column .about h2::after{content:none;display:none}
+.content-column .section-heading::after{display:block;width:100px;height:3px;left:0;bottom:0;margin:0;background:#dbc49b;border:0;border-radius:0}
+/* Text-only publications grouped by year, without cards or illustrations. */
+.publication-year{font-family:"Times New Roman",serif;font-size:25px;font-weight:700;font-style:italic;color:#393342;margin:2px 0 22px}
+.publication-entry{margin:0 0 24px;padding:0;background:none;border:0;box-shadow:none}
+.publication-title{margin:0 0 8px;font-family:"Times New Roman","Microsoft YaHei",serif;font-size:20px;font-weight:700;line-height:1.6;color:var(--ink)}
+.publication-type{color:#a65f78;margin-right:8px}
+.publication-authors{font-size:17px;margin:0 0 5px}
+.publication-venue{font-size:16px;font-style:italic;color:var(--muted);line-height:1.7;margin:0}
+.honor-list li{border-bottom:0}
+/* Projects share the publication list's year, title and metadata styling. */
+.project-entry{margin-bottom:28px}
+.project-entry .publication-venue{margin-bottom:12px}
+.project-role{font-style:normal}
+.project-entry>p:not(.publication-venue){font-size:16px;line-height:1.85;color:var(--muted);margin-bottom:10px}
